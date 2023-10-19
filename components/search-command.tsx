@@ -3,7 +3,6 @@
 import { useRouter } from "next/navigation";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
-import { useSearch } from "@/hooks/use-search";
 import { useEffect, useState } from "react";
 import {
   CommandDialog,
@@ -14,6 +13,7 @@ import {
   CommandList
 } from "@/components/ui/command";
 import { File } from "lucide-react";
+import { useSearch } from "@/hooks/use-search";
 
 export const SearchCommand = () => {
   const router = useRouter();

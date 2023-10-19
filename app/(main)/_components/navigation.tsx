@@ -3,7 +3,7 @@
 import { ChevronsLeft, MenuIcon, PlusCircle, Search, Settings, Trash } from "lucide-react";
 import { ElementRef, useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
-import { useParams, usePathname } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { UserItem } from "@/app/(main)/_components/user-item";
 import { useMutation } from "convex/react";
@@ -13,13 +13,14 @@ import { toast } from "sonner";
 import { DocumentList } from "@/app/(main)/_components/document-list";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { TrashBox } from "@/app/(main)/_components/trash-box";
+import { Navbar } from "@/app/(main)/_components/navbar";
 import { useSearch } from "@/hooks/use-search";
 import { useSettings } from "@/hooks/use-settings";
-import { Navbar } from "@/app/(main)/_components/navbar";
 
 export const Navigation = () => {
-  const search = useSearch()
-  const settings = useSettings()
+  const router = useRouter();
+  const search = useSearch();
+  const settings = useSettings();
   const params = useParams();
   const pathname = usePathname();
   const isMobile = useMediaQuery("(max-width: 768px)");
@@ -107,7 +108,8 @@ export const Navigation = () => {
   };
 
   const handleCreate = () => {
-    const promise = create({ title: "Untitled" });
+    const promise = create({ title: "Untitled" })
+      .then((documentId) => router.push(`/documents/${documentId}`));
 
     toast.promise(promise, {
       loading: "Creating a new note...",

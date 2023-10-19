@@ -3,7 +3,8 @@
 import { SignOutButton, useUser } from "@clerk/clerk-react";
 import {
   DropdownMenu,
-  DropdownMenuContent, DropdownMenuItem,
+  DropdownMenuContent,
+  DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
@@ -11,7 +12,7 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { ChevronsLeftRight } from "lucide-react";
 
 export const UserItem = () => {
-  const {user} = useUser()
+  const { user } = useUser();
 
   return (
     <DropdownMenu>
@@ -29,10 +30,10 @@ export const UserItem = () => {
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent
-       className="w-80"
-       align="start"
-       alignOffset={11}
-       forceMount
+        className="w-80"
+        align="start"
+        alignOffset={11}
+        forceMount
       >
         <div className="flex flex-col space-y-4 p-2">
           <p className="text-xs font-medium leading-none text-muted-foreground">

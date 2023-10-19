@@ -6,44 +6,45 @@ import { api } from "@/convex/_generated/api";
 import { useRef, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface TitleProps {
-  initialData: Doc<"documents">
+  initialData: Doc<"documents">;
 }
 
-export const Title = ({initialData}: TitleProps) => {
+export const Title = ({ initialData }: TitleProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const update = useMutation(api.documents.update)
+  const update = useMutation(api.documents.update);
 
   const [title, setTitle] = useState(initialData.title || "Untitled");
   const [isEditing, setIsEditing] = useState(false);
-  
+
   const enableInput = () => {
-    setTitle(initialData.title)
-    setIsEditing(true)
+    setTitle(initialData.title);
+    setIsEditing(true);
     setTimeout(() => {
-      inputRef.current?.focus()
-      inputRef.current?.setSelectionRange(0, inputRef.current.value.length)
-    }, 0)
-  }
-  
+      inputRef.current?.focus();
+      inputRef.current?.setSelectionRange(0, inputRef.current.value.length);
+    }, 0);
+  };
+
   const disableInput = () => {
-    setIsEditing(false)
-  }
+    setIsEditing(false);
+  };
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.target.value)
+    setTitle(e.target.value);
     update({
       id: initialData._id,
       title: e.target.value || "Untitled"
-    })
-  }
+    });
+  };
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      disableInput()
+      disableInput();
     }
-  }
+  };
 
   return (
     <div className="flex items-center gap-x-1">
@@ -71,5 +72,11 @@ export const Title = ({initialData}: TitleProps) => {
         </Button>
       )}
     </div>
-  )
-}
+  );
+};
+
+Title.Skeleton = function TitleSkeleton() {
+  return (
+    <Skeleton className="h-0 w-16 rounded-md" />
+  );
+};
