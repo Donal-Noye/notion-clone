@@ -6,6 +6,7 @@ import { ConvexClientProvider } from "@/components/providers/convex-provider";
 import { Toaster } from "sonner";
 import { ModalProvider } from "@/components/providers/modal-provider";
 import { EdgeStoreProvider } from "@/lib/edgestore";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,21 +23,22 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
     <body className={inter.className}>
-      <ConvexClientProvider>
-        <EdgeStoreProvider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-            storageKey="jotion-theme-2"
-          >
-            <Toaster position="bottom-center" />
-            <ModalProvider />
-            {children}
-          </ThemeProvider>
-        </EdgeStoreProvider>
-      </ConvexClientProvider>
+    <ConvexClientProvider>
+      <EdgeStoreProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+          storageKey="jotion-theme-2"
+        >
+          <Toaster position="bottom-center" />
+          <ModalProvider />
+          {children}
+          <SpeedInsights />
+        </ThemeProvider>
+      </EdgeStoreProvider>
+    </ConvexClientProvider>
     </body>
     </html>
   );
